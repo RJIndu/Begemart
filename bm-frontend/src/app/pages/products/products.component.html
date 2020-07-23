@@ -1,0 +1,42 @@
+<!-- <section>
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-12 col-md-3">
+              <app-filter></app-filter>
+          </div>
+          <div class="col-12 col-md-9">
+              <input type="text" placeholder="Search for products" class="inputField"/>
+              <button>Browse</button> -->
+              <div class="pageloader" [ngStyle]="{'display': pageloader?'block':'none'}"></div>
+              <div class="row"  *ngIf="!showeditpage"  [ngStyle]="{'display': pageloader?'none':''}" >
+                
+              <div class="col-sm-3 productslist" *ngFor="let productItem of products">
+                  <nb-card>
+                    <nb-card-header>                        
+                        <span style="float: right;">
+                            <i class="fas fa-edit" style="cursor: pointer;" (click)="editProduct(productItem)"></i>&nbsp;&nbsp;
+                            <i style="color: red;cursor: pointer;"  class="fas fa-trash-alt"
+                            (click)="deleteProduct(productItem)"></i>
+                        </span>
+                    </nb-card-header>
+                    <nb-card-body>
+                        <ngx-product-list [productItem]="productItem"></ngx-product-list>
+                    </nb-card-body>
+                  </nb-card>
+                </div>
+            
+            </div>
+              <div *ngIf="showeditpage">
+                <div class="col-sm-12">                   
+                        <button style="float:left" status='warning' nbButton size="tiny" (click)="hideEditPage()">&lt;&nbsp;&nbsp;Back</button>                       
+                        <br/><br/>                      
+                        <ngx-newproduct [editProdObj]="currentEditProdObj"></ngx-newproduct>                     
+                  </div>
+                
+              </div>
+              <!-- <ngx-product-list></ngx-product-list>
+              <ngx-product-list></ngx-product-list> -->
+          <!-- </div> -->
+      <!-- </div>
+  </div>
+</section> -->

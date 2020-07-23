@@ -1,0 +1,68 @@
+
+<div class="row"> 
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header *ngIf="!isEditForm">Add new category</nb-card-header>
+      <nb-card-header *ngIf="isEditForm">Edit/Update category</nb-card-header>
+      <nb-card-body>
+       
+        <form [formGroup]="categoryForm" class="row">
+          <div class="form-group col-sm-4">
+            <label class="label">Name</label>
+            <span style="font-size: 12px;color: red;" 
+            *ngIf="categoryForm.get('name').hasError('required')" 
+            >&nbsp;*required</span>
+            <span style="font-size: 12px;color: red;" 
+            *ngIf="categoryForm.get('name').hasError('pattern')" 
+            >&nbsp;*Invalid</span>
+            <span style="font-size: 12px;color: red;" 
+            *ngIf="categoryForm.get('name').hasError('invalidString')" 
+            >&nbsp;*empty field not allowed</span>
+            <span style="font-size: 12px;color: red;" 
+            *ngIf="categoryForm.get('name').hasError('minlength')" 
+            >&nbsp;*should be 5 char length</span>
+            <input fieldSize="small" type="text" nbInput fullWidth formControlName="name" placeholder="Name">
+          </div>
+
+          
+          <div class="form-group col-sm-4">
+            <label class="label">Select parent category to set</label>
+            <nb-select placeholder="Select category" size="small" [disabled]="isSetAsMain" 
+            (selectionChange)="onSelectedCat($event);" style="font-size: 12px;" 
+            fullWidth formControlName="parentid">       
+                   
+              <nb-option *ngFor="let c of categories" [value]="c._id" >
+                {{c.name}}               
+              </nb-option>
+              
+            </nb-select>
+          </div>
+          <div class="form-group col-sm-2.5" style="padding-top: 1.7em;">
+            <nb-checkbox (change)="onCheckChange($event)" formControlName="level">Set as main</nb-checkbox>
+          </div> 
+          <div class="form-group col-sm-2.5" style="padding-top: 1.7em;">
+            <nb-checkbox formControlName="active">Is active</nb-checkbox>
+          </div>
+        </form>
+       
+        <div *ngIf="result"  >          
+          <span [ngStyle]="{'color': result.status=='success' ? 'green':'red'}">{{result.message}}</span>
+        </div>
+       
+      </nb-card-body>
+      <nb-card-footer>
+        <button  *ngIf="!result" style="float: left;" status="danger" nbButton size="small" (click)="ref.close()">Cancel</button>
+        <button *ngIf="result" style="float: left;" status="danger" nbButton size="small" (click)="ref.close()">Close</button>
+        <button style="float: right;" size="small" 
+          [disabled]="categoryForm.pristine || showprogress" (click)="submit()"  
+          type="submit" nbButton status="warning">Submit
+         &nbsp; <nb-icon pack="fa" *ngIf="showprogress" [ngClass]="showprogress==true? 'fa fa-spinner fa-spin' : ''" aria-hidden="true">
+          </nb-icon>
+        </button>
+      </nb-card-footer>
+    </nb-card>
+
+    
+  </div>
+</div>
+

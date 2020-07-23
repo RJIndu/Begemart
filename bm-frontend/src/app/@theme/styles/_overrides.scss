@@ -1,0 +1,41 @@
+@import './themes';
+
+@mixin nb-overrides() {
+  nb-select.size-medium button {
+    padding: 0.4375rem 2.2rem 0.4375rem 1.125rem !important;
+
+    nb-icon {
+      right: 0.41rem !important;
+    }
+  }
+
+  nb-layout .layout .layout-container .content .columns nb-layout-column {
+    padding: 1rem 1rem 0.5rem;
+}
+
+  nb-sidebar ::-webkit-scrollbar {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  nb-sidebar ::-webkit-scrollbar-thumb {
+    background: #cccccc;
+    cursor: pointer;
+    border-radius: 0.15625rem;
+  }
+
+  .options-list {
+    background-color: #ffffff;
+    max-height: 15rem;
+    height: 100%;
+    overflow: auto;
+}
+
+  .label {
+    color: black;
+    font-family: Open Sans, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1rem;
+}
+}

@@ -1,0 +1,143 @@
+<div class="col-12">  
+  <div class="row" *ngIf="showdetails" >
+    <div class="col-6">
+      <img [src]="selectedImage" style="height: 16rem;"
+      class="rounded mx-auto d-block" alt="...">
+      <br/>
+      <!-- <div class="form-group col-sm-9"> -->
+        <span *ngFor='let fileimg of productItem.imagePath'>              
+          <img [ngClass]="{'prodimage': showBorder}" [src]="fileimg.path"
+          (mouseenter) ="changeImage(fileimg.path)" 
+         
+            height="100">          
+            <!-- (click)="changeImage(fileimg.path)" -->
+        </span>            
+      <!-- </div>  -->
+      <!-- <p><strong>Estimated Delivery Time</strong></p>
+      <p>14 - 20 Days</p>
+      <p class="highlight">Save 20%</p>
+      <app-quantity-counter></app-quantity-counter>
+      <button><i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to Cart</button> -->
+    </div>
+    <div class="col-6" >
+        <!-- <h5>{{productItem.title}}</h5>
+        <h6>Brand Name</h6> -->
+        <p>{{productItem.brand}}</p>
+        <a class="titlehover" (click)="navigatedetails(productItem)">
+          <p>{{productItem.title}}</p>
+        </a>  
+        <span aria-hidden="true" *ngIf="productItem.product_available" >
+          <span class="a-mrpprice-symbol">M.R.P: &nbsp;₹</span>
+          <span class="a-mrpprice-whole">{{productItem.price_mrp}}</span>
+        </span>
+        <br/>       
+        <span aria-hidden="true" *ngIf="productItem.product_available">
+          <span class="a-price-symbol">Price:&nbsp;₹</span>
+          <span class="a-price-whole">{{productItem.price}}</span>
+        </span>
+        <br/>   
+        
+        <span *ngIf="productItem.product_available && productItem.price_mrp > productItem.price" aria-hidden="true">
+          <span class="a-save-symbol">You Save:&nbsp;<span style="color:#B12704">₹</span></span>
+          <span class="a-save-whole" style="color:#B12704">{{productItem.price_mrp-productItem.price}}</span>
+        </span>
+        <br/><br/>
+        <span *ngIf="productItem.product_available" style="font-size:17px;color: #007600;">
+          In stock.
+        </span>
+        <span *ngIf="!productItem.product_available" style="font-size:17px;color: #B12704;">
+          Currently Unavailable
+        </span>
+        <br/>
+        <span>
+          {{productItem.description}}
+        </span>
+        <br/><br/>
+        <span class="labelText">
+          Stock availability :&nbsp;<span style="color: red;">{{productItem.unitsInStock}}</span>
+        </span>
+        <br/><br/>
+        <span *ngIf="productItem?.setminorder else elsesetmin ">
+          <span class="labelText">
+            Minimum order set :&nbsp;<span style="color: red;">{{productItem.setminorder}}</span>
+          </span>
+        </span>
+        <ng-template #elsesetmin>
+        
+          <div class="labelText">
+            No minimum order set
+          </div>
+        
+      </ng-template>
+      <br/><br/>
+      <span *ngIf="availColors.length>0" class="col-3">
+        <span class="labelText">Available colors</span><br/><br/>
+        <span *ngFor="let c of availColors">
+          <p class="boxtxt">{{c}}</p>  
+        </span>
+        <!-- <nb-select size="small" style="font-size: 12px;" 
+        fullWidth> 
+                    
+          <nb-option *ngFor="let c of availColors" [value]="c" >
+            {{c}}               
+          </nb-option>
+          
+        </nb-select> -->
+      </span><br/><br/>
+      <span *ngIf="availSizes.length>0" class="col-3">
+        <span class="labelText">Available sizes</span><br/><br/>
+        <span *ngFor="let c of availSizes">
+          <p class="boxtxt">{{c}}</p>  
+        </span>
+        <!-- <nb-select size="small" style="font-size: 12px;" 
+        fullWidth>
+                                 
+          <nb-option *ngFor="let c of availSizes" [value]="c" >
+            {{c}}               
+          </nb-option>
+          
+        </nb-select> -->
+      </span><br/><br/>
+    
+        <!-- <p><b><span class="highlight">Estimated Price</span>: Rs 20/Unit</b></p> -->
+        <!-- <app-rating></app-rating> -->
+    </div>
+  </div>
+  <div class="row" *ngIf="!showdetails" >
+    <div class="col-12">
+        <img [src]="productItem.imagePath[0]?.path" style="height: 10rem;"
+        class="rounded mx-auto d-block" alt="...">
+        <!-- <p><strong>Estimated Delivery Time</strong></p>
+        <p>14 - 20 Days</p>
+        <p class="highlight">Save 20%</p>
+        <app-quantity-counter></app-quantity-counter>
+        <button><i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to Cart</button> -->
+    </div>
+      <div class="col-12" >
+          <!-- <h5>{{productItem.title}}</h5>
+          <h6>Brand Name</h6> -->
+          <p>{{productItem.brand}}</p>
+          <a class="titlehover" (click)="navigatedetails(productItem)">
+            <p>{{productItem.title}}</p>
+          </a>          
+          <span aria-hidden="true">
+            <span class="a-price-symbol">₹</span>
+            <span class="a-price-whole">{{productItem.price}}</span>
+          </span>
+          &nbsp;
+          <span aria-hidden="true" style="text-decoration: line-through;" >
+            <span class="a-mrpprice-symbol">₹</span>
+            <span class="a-mrpprice-whole">{{productItem.price_mrp}}</span>
+          </span>
+          &nbsp;
+          <span *ngIf="productItem.price_mrp > productItem.price" aria-hidden="true">
+            <span class="a-save-symbol">Save&nbsp;₹</span>
+            <span class="a-save-whole">{{productItem.price_mrp-productItem.price}}</span>
+          </span>
+          <!-- <p><b><span class="highlight">Estimated Price</span>: Rs 20/Unit</b></p> -->
+          <!-- <app-rating></app-rating> -->
+      </div>
+     
+      
+  </div>
+</div>

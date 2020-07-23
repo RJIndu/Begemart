@@ -1,0 +1,67 @@
+<div class="row">
+  <button style="float: left;margin-left: 1rem;" status="primary" nbButton size="small" (click)="addCat('')">Add Category</button>
+</div><br/>
+<nb-accordion >
+  <nb-accordion-item 
+   *ngFor="let c1 of catlevel1">
+    <nb-accordion-item-header  class="itemheader">
+      {{c1.name}}
+      <span style="float:right;margin-left:1rem;">
+        <nb-icon (click)="addCat(c1._id)" style="font-size: 0.9em;" icon="plus-circle" pack="fa"></nb-icon>&nbsp;&nbsp;
+        <nb-icon (click)="editCat(c1)"style="font-size: 0.9em;color:green;" size="small" icon="edit" pack="fa"></nb-icon>&nbsp;&nbsp;
+        <nb-icon (click)="deleteCat(c1._id)" style="font-size: 0.9em;color:red;" size="small" icon="trash" pack="fa"></nb-icon>&nbsp;&nbsp;
+        <!-- <nb-icon (click)="prodList(c1._id)" style="font-size: 0.9em;" icon="list" pack="fa"></nb-icon>&nbsp;&nbsp; -->
+      </span>
+    </nb-accordion-item-header>
+    <nb-accordion-item-body>
+      <div class="row" >
+        <div class="col-md-4"  *ngFor="let c2 of catlevel2 | filterBy:c1._id">
+          <span >
+          <nb-card size="tiny" style="height:100%;">
+            <nb-card-header style="background-color: #e9f3d0;">{{c2.name}}
+              <span style="float:right;margin-left:1rem;">
+                <nb-icon (click)="addCat(c2._id)" style="font-size: 0.9em;cursor: pointer;" icon="plus-circle" pack="fa"></nb-icon>&nbsp;&nbsp;
+                <nb-icon (click)="editCat(c2)"style="font-size: 0.9em;color:green;cursor: pointer;" size="small" icon="edit" pack="fa"></nb-icon>&nbsp;&nbsp;
+                <nb-icon (click)="deleteCat(c2._id)" style="font-size: 0.9em;color:red;cursor: pointer;" size="small" icon="trash" pack="fa"></nb-icon>&nbsp;&nbsp;
+              </span>
+            </nb-card-header>
+            <nb-card-body style="padding: 0px;">
+             
+              <div class="subcat" *ngFor="let c3 of catlevel2 | filterBy:c2._id">
+                <span>
+
+                  <nb-accordion style="margin-left: -1rem;">
+                  <nb-accordion-item  [expanded]="false" style="height: 100%;">
+                    <nb-accordion-item-header  class="subcat">
+                      {{c3.name}}                 
+                      <span style="float:right;margin-left:1rem;">
+                        <!-- <nb-icon (click)="addCat(c2._id)" style="font-size: 0.9em;cursor: pointer;" icon="plus-circle" pack="fa"></nb-icon>&nbsp;&nbsp; -->
+                        <nb-icon (click)="editCat(c3)"style="font-size: 0.9em;color:green;cursor: pointer;" size="small" icon="edit" pack="fa"></nb-icon>&nbsp;&nbsp;
+                        <nb-icon (click)="deleteCat(c3._id)" style="font-size: 0.9em;color:red;cursor: pointer;" size="small" icon="trash" pack="fa"></nb-icon>&nbsp;&nbsp;
+                      </span>     
+                    </nb-accordion-item-header>
+                    <nb-accordion-item-body>
+                      <!-- <div  class="subcat" *ngFor="let roleItem of subcategoryItem.value |sort">
+                       <div style="cursor: pointer;" (click)="open(dialog,roleItem)"> {{roleItem.roleName}}</div><br/>
+                      </div> -->
+                    </nb-accordion-item-body>
+                  </nb-accordion-item>
+                  </nb-accordion>
+
+                </span>
+                <ng-template #showElse>                  
+                  <div style="cursor: pointer;" >{{c3.name}}</div>
+                </ng-template>
+                
+              </div>
+             
+
+            </nb-card-body>
+          </nb-card>    
+        </span>                         
+        </div>
+       
+      </div>
+    </nb-accordion-item-body>
+  </nb-accordion-item>                                     
+</nb-accordion>

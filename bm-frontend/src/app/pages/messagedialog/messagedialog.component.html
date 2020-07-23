@@ -1,0 +1,11 @@
+<nb-card>
+  <nb-card-header>Status: &nbsp;&nbsp;
+    <span [ngClass]="{'success': messageObj.status=='success' , 'error': messageObj.status=='error'}"
+    >{{ messageObj.status }}</span>
+    
+  </nb-card-header>
+  <nb-card-body>{{ messageObj.message }}</nb-card-body>
+  <nb-card-footer>
+    <button style="float: right;" status="warning" nbButton size="tiny" (click)="ref.close()">Ok</button>
+  </nb-card-footer>
+</nb-card>

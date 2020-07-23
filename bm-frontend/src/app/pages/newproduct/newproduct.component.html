@@ -1,0 +1,148 @@
+
+<div class="row"> 
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header *ngIf="!isEditForm">Add new product</nb-card-header>
+     
+      <nb-card-body>
+       
+        <form [formGroup]="newproductForm" class="row">
+          <div class="form-group col-sm-4">
+            <label class="label">Title</label>
+            <span style="font-size: 12px;color: red;" 
+            *ngIf="newproductForm.get('title').hasError('required')" 
+            >&nbsp;*required</span>
+            <span style="font-size: 12px;color: red;" 
+            *ngIf="newproductForm.get('title').hasError('pattern')" 
+            >&nbsp;*Invalid</span>
+            <span style="font-size: 12px;color: red;" 
+            *ngIf="newproductForm.get('title').hasError('invalidString')" 
+            >&nbsp;*empty field not allowed</span>
+            <span style="font-size: 12px;color: red;" 
+            *ngIf="newproductForm.get('title').hasError('minlength')" 
+            >&nbsp;*should be 5 char length</span>
+            <input fieldSize="small" type="text" nbInput fullWidth formControlName="title" placeholder="Title">
+          </div>
+
+          <div class="form-group col-sm-4">
+            <label class="label">Brand</label>            
+            <span style="font-size: 12px;color: red;" 
+            *ngIf="newproductForm.get('brand').hasError('pattern')" 
+            >&nbsp;*Invalid</span>
+           
+            <input fieldSize="small" type="text" nbInput fullWidth formControlName="brand" placeholder="Brand">
+          </div>
+
+          <div class="form-group col-sm-4">
+            <label class="label">Select Category (product placed under)</label>
+   
+            <nb-select placeholder="Select category" size="small" 
+            (selectionChange)="onSelectedCat($event);" style="font-size: 12px;" 
+            fullWidth formControlName="categoryid">       
+                   
+              <nb-option *ngFor="let c of categories" [value]="c._id" >
+                {{c.name}}               
+              </nb-option>
+              
+            </nb-select>
+          </div>
+
+          <div class="form-group col-sm-6">
+            <label class="label">Available in size/quantity</label> 
+            <span style="font-size: 12px;color: red;" 
+            *ngIf="newproductForm.get('available_size').hasError('pattern')" 
+            >&nbsp;*Invalid (ex: S,M,L or 250ml,500ml or one quantity)</span>           
+            <input fieldSize="small" type="text" nbInput fullWidth 
+            formControlName="available_size" placeholder="Ex: S,M,L or 250ml,500ml or one quantity">
+          </div>
+
+          <div class="form-group col-sm-6">
+            <label class="label">Available colors(optional)</label> 
+            <span style="font-size: 12px;color: red;" 
+            *ngIf="newproductForm.get('available_colors').hasError('pattern')" 
+            >&nbsp;*Invalid (ex: white,black,red,green or one color)</span>            
+            <input fieldSize="small" type="text" nbInput fullWidth formControlName="available_colors" 
+            placeholder="Ex: white,black,red,green  or one color">
+          </div>
+
+         
+
+          <div class="form-group col-sm-3">
+            <label class="label">Set minimum order</label>
+            <span style="font-size: 12px;color: red;" 
+            *ngIf="newproductForm.get('setminorder').hasError('pattern')" 
+            >&nbsp;*Invalid(enter numbers only)</span>
+            <input fieldSize="small" type="number" nbInput fullWidth formControlName="setminorder" placeholder="In numbers">
+          </div>   
+
+          <div class="form-group col-sm-3">
+            <label class="label">No of units available in Stock</label>
+            <span style="font-size: 12px;color: red;" 
+            *ngIf="newproductForm.get('unitsInStock').hasError('pattern')" 
+            >&nbsp;*Invalid(enter numbers only)</span>
+            <input fieldSize="small" type="number" nbInput fullWidth formControlName="unitsInStock" placeholder="In numbers">
+          </div>          
+
+          <div class="form-group col-sm-3">
+            <label class="label">MRP Price</label>
+            <span style="font-size: 12px;color: red;" 
+            *ngIf="newproductForm.get('price_mrp').hasError('required')" 
+            >&nbsp;*required</span>
+            <span style="font-size: 12px;color: red;" 
+            *ngIf="newproductForm.get('price_mrp').hasError('pattern')" 
+            >&nbsp;*Invalid(enter numbers only)</span>
+            <input fieldSize="small" type="number" nbInput fullWidth formControlName="price_mrp" placeholder="In numbers">
+          </div>
+          <div class="form-group col-sm-3">
+            <label class="label">Begemart Price</label>
+            <span style="font-size: 12px;color: red;" 
+            *ngIf="newproductForm.get('price').hasError('required')" 
+            >&nbsp;*required</span>
+            <span style="font-size: 12px;color: red;" 
+            *ngIf="newproductForm.get('price').hasError('pattern')" 
+            >&nbsp;*Invalid(enter numbers only)</span>
+           
+            <input fieldSize="small" type="number" nbInput fullWidth formControlName="price" placeholder="In numbers">
+          </div>
+
+          <div class="form-group col-sm-3">
+            <nb-checkbox formControlName="product_available">is Product Available</nb-checkbox>
+          </div>
+
+          <div class="form-group col-sm-9">
+            <label class="label">Description</label>
+            <span style="font-size: 12px;color: red;" 
+            *ngIf="newproductForm.get('description').hasError('pattern')" 
+            >&nbsp;*Invalid</span>
+            <textarea fieldSize="small" rows="3" nbInput formControlName="description" fullWidth  placeholder="Please add description here.."></textarea>                        
+          </div>
+          
+          <div class="form-group col-sm-3">
+            <label class="label">Image</label>
+            <input accept=".png, .jpg, .jpeg" type='file' formControlName="imagePath" (change)="onSelectFile($event)" multiple>           
+            <!-- <input type="text" nbInput fullWidth formControlName="imagePath" placeholder="Image"> -->
+          </div>
+
+          <div class="form-group col-sm-9">
+            <span *ngFor='let fileimg of imageurls' class="imgpos">              
+              <img [src]="fileimg.path" height="100">
+              <div style="cursor: pointer;" (click)="deleteimg(fileimg)" class="iconpos"><i style="color: red;" class="far fa-times-circle"></i></div>
+            </span>            
+          </div>                   
+        </form>
+      
+      </nb-card-body>
+      <nb-card-footer>
+        <button style="float: right;" 
+          [disabled]="newproductForm.pristine || showprogress" (click)="submit()"  type="submit" nbButton status="danger">Submit
+         &nbsp; 
+         <nb-icon pack="fa" *ngIf="showprogress" [ngClass]="showprogress==true? 'fa fa-spinner fa-spin' : ''" aria-hidden="true">
+           </nb-icon>
+        </button>
+      </nb-card-footer>
+    </nb-card>
+
+    
+  </div>
+</div>
+
